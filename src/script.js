@@ -10,6 +10,8 @@ function _App(){
 		var forms = document.querySelectorAll('form');
 		for(var i=0; i<forms.length; i++) this.resetForm(forms[i]);
 		
+		
+		document.querySelector('[name="url"]').value = 'http://google.se';
 		document.querySelector('form').onsubmit();
 	};
 	
@@ -25,7 +27,7 @@ function _App(){
 			this.bitly(url, function(data){
 				scope.unlockForm(form);
 				if(data !== false){
-					alert(data.url);
+					scope.addToHistory(data);
 					scope.resetForm(form);
 				}else{
 					alert("error");
@@ -34,6 +36,20 @@ function _App(){
 		}else{
 			alert(error);	
 		}
+	};
+	
+	this.addToHistory = function(data){
+		var scope = this;
+		var ul = document.querySelector('#history ul');
+		if(!ul){
+			document.querySelector('#history').innerHTML = '<ul></ul>';
+			ul = document.querySelector('#history ul');
+		}
+		var li = document.createElement('li');
+		li.innerHTML =  '<a href="' + data.url + '" class="short_url">' + data.url + '</a><br>';
+		li.innerHTML += '<span class="long_url">' + data.long_url + '</span>';
+		ul.insertBefore(li, ul.firstChild);
+		ul.classList.remove('hide');
 	};
 	
 	this.resetForm = function(form){
