@@ -8,9 +8,9 @@ function _App(){
 	this.init = function(){
 		// Reset forms
 		var forms = document.querySelectorAll('form');
-		for(var i=0; i<forms.length; i++) forms[i].reset();
+		for(var i=0; i<forms.length; i++) this.resetForm(forms[i]);
 		
-		//document.querySelector('form').onsubmit();
+		document.querySelector('form').onsubmit();
 	};
 	
 	this.submit = function(form){
@@ -21,11 +21,12 @@ function _App(){
 		if(!url.match(/(^http:\/\/|^https:\/\/)[a-z0-9_\-]{2,}\.[a-z]{2,}/i)) error = 'Please enter a valid URL';
 		
 		if(!error){
-			this.lockButton(button, 'Loading...');
+			this.lockForm(form, 'Loading...');
 			this.bitly(url, function(data){
-				scope.unlockButton(button);
+				scope.unlockForm(form);
 				if(data !== false){
 					alert(data.url);
+					scope.resetForm(form);
 				}else{
 					alert("error");
 				}	
@@ -35,15 +36,23 @@ function _App(){
 		}
 	};
 	
-	this.unlockButton = function(button){
-		if(typeof button.original_label != "undefined") button.innerText = button.original_label;
-		button.disabled = false;
+	this.resetForm = function(form){
+		form.reset();
 	};
 	
-	this.lockButton = function(button, label){
+	this.unlockForm = function(form){
+		var button = form.querySelector('button');
+		if(typeof button.original_label != "undefined") button.innerText = button.original_label;
+		var elements = form.querySelectorAll('button, input, select');
+		for(var i=0; i<elements.length; i++) elements[i].disabled = false;
+	};
+	
+	this.lockForm = function(form, label){
+		var button = form.querySelector('button');
 		if(button.original_label == undefined) button.original_label = button.innerText;
 		button.innerText = label;
-		button.disabled = true;
+		var elements = form.querySelectorAll('button, input, select');
+		for(var i=0; i<elements.length; i++) elements[i].disabled = true;
 	};
 	
 	this.bitly = function(url, callback){
