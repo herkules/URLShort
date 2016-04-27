@@ -10,7 +10,7 @@ var build_dir 	= './public';
 
 gulp.task('js', function () {
 	return gulp.src(src_dir + '/js/**/*.js')
-		.pipe(browserify({debug: false, bare:true}))
+		.pipe(browserify())
 		.pipe(gulp.dest(build_dir + '/includes/js'))
 		.pipe(notify({ message: 'JS Compiled' }));
 });
