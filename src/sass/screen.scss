@@ -1,0 +1,10 @@
+@import "../../node_modules/bootstrap/scss/bootstrap"; 
+
+.hide{ display:none; }
+#history ul{
+	margin:20px 0 0px 0;
+}
+
+@include media-breakpoint-down(md) {
+	button{ margin-top:10px; }
+}
