@@ -6,7 +6,7 @@ var gulp 			= require('gulp'),
 	browserify 		= require('gulp-browserify');
 	
 var src_dir 	= './src';
-var build_dir 	= './build';
+var build_dir 	= './public';
 
 gulp.task('js', function () {
 	return gulp.src(src_dir + '/js/**/*.js')
