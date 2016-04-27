@@ -4564,6 +4564,12 @@ a.bg-danger:focus, a.bg-danger:hover {
 #history ul {
   margin: 20px 0 0px 0; }
 
+.alert .close {
+  margin: 0; }
+
+button, input, a {
+  outline: none !important; }
+
 @media (max-width: 991px) {
   button {
     margin-top: 10px; } }
